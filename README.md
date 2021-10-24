@@ -1,10 +1,10 @@
 # Programowanie_urządzeń_mobilnych
 
-##Aleksandra Witek
+## Aleksandra Witek
  
- Lista 1
+### Lista 1
  
- [x] zad1
+ - [x] zad1 <br />
  
- [x] zad2 (dodatkowo działający przycisk ",")
+ - [x] zad2 (dodatkowo działający przycisk ",") 
  
