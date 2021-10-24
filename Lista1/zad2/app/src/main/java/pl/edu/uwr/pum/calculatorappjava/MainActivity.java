@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
             num2 = savedInstanceState.getString("num2");
             num1 = savedInstanceState.getFloat("num1");
             num3 = savedInstanceState.getFloat("num3");
+            eq = savedInstanceState.getInt("eq");
             num4 = savedInstanceState.getFloat("num4");}
 
         if (screen != null)
@@ -300,5 +301,6 @@ public class MainActivity extends AppCompatActivity {
         outState.putFloat("num1", num1);
         outState.putFloat("num3", num3);
         outState.putFloat("num4", num4);
+        outState.putInt("eq", eq);
     }
 }
