@@ -5,4 +5,6 @@
  Lista 1
  
  [x] zad1
+ 
  [x] zad2 (dodatkowo działający przycisk ",")
+ 
