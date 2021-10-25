@@ -7,4 +7,8 @@
  - [x] zad1 <br />
  
  - [x] zad2 (dodatkowo działający przycisk ",") 
+
+### Lista 2
+
+- [] zad1 
  
