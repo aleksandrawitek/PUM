@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">PhysicsQuizJava</string>
+    <string name="trueString">TRUE</string>
+    <string name="falseString">FALSE</string>
+    <string name="correct_answer">CORRECT</string>
+    <string name="next">NEXT</string>
+    <string name="incorrect_answer">INCORRECT</string>
+
+    <string name="question1">Was relative theory created by Isaac Newton?</string>
+    <string name="question2">Can a fire have a shadow?</string>
+    <string name="question3">Can air make shadows?</string>
+    <string name="question4">Einstein got a Nobel prize for the special theory of relativity.</string>
+    <string name="question5">René Descartes (French philosopher) discovered the conservation of momentum.</string>
+    <string name="question6">Objects fall at the same rate because they are affected by the same gravitational force.</string>
+    <string name="question7">Newtons second law deals with the inertia of an object.</string>
+    <string name="question8">The term "radioactivity" was coined by Antoine Henri Becquerel.</string>
+    <string name="question9">Galileo Galilei was the first to notice that objects fall at the same rate.</string>
+    <string name="question10">The ohm is a unit of electrical voltage.</string>
+
+
+
+</resources>
