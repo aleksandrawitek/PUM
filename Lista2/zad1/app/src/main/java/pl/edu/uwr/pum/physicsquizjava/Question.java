@@ -23,6 +23,6 @@ public class Question {
         return checked;
     }
 
-    public void setChecked(boolean newChecked){ this.checked = newChecked; }
+    public void setChecked(boolean newChecked){this.checked = newChecked;}
 
 }

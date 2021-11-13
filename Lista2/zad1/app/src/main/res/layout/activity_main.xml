@@ -7,7 +7,6 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
-
     <TextView
         android:id="@+id/question_text"
         android:layout_width="wrap_content"
@@ -52,5 +51,15 @@
         android:onClick="next"
         android:text="@string/next" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/info_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="24dp"
+        android:text="@string/correct_answer"
+        android:textAlignment="center"
+        android:layout_alignParentBottom="true"
+        android:textSize="16sp" />
 
 </LinearLayout>
