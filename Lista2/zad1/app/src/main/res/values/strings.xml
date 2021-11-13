@@ -5,6 +5,8 @@
     <string name="correct_answer">CORRECT</string>
     <string name="next">NEXT</string>
     <string name="incorrect_answer">INCORRECT</string>
+    <string name="retryString">RETRY</string>
+
 
     <string name="question1">Was relative theory created by Isaac Newton?</string>
     <string name="question2">Can a fire have a shadow?</string>

@@ -1,20 +1,15 @@
 package pl.edu.uwr.pum.physicsquizjava;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
-import java.util.*;
-import android.content.Intent;
-
-
-
-import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.Objects;
+
+
+public class ResumeActivity extends AppCompatActivity {
 
     private TextView textView;
     private TextView textViewresume;
@@ -43,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
             new Question(R.string.question10, false, false),
 
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,8 +174,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void retry(View view)
     {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        setContentView(R.layout.activity_main);
 
     }
 
