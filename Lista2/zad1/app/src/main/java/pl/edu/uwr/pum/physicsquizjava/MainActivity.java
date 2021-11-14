@@ -2,6 +2,7 @@ package pl.edu.uwr.pum.physicsquizjava;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import java.util.*;
@@ -23,8 +24,12 @@ public class MainActivity extends AppCompatActivity {
     private int answered;
     private View trueButton;
     private View falseButton;
+    private View cheatButton;
     private TextView correctText;
     private String resume;
+
+    //ilosc zmiennych ze wzgledu na przekazanie ich podczas rotacji ekranu
+
     private boolean questions0;
     private boolean questions1;
     private boolean questions2;
@@ -36,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
     private boolean questions8;
     private boolean questions9;
     private int k;
+    private int cheated;
+    private View checkButton;
+    private View internetButton;
 
     private final Question[] questions = new Question[]{
             new Question(R.string.question1, true, false),
@@ -62,16 +70,25 @@ public class MainActivity extends AppCompatActivity {
         points = 0;
         incorrect = 0;
         answered = 0;
+        cheated = 0;
         trueButton = findViewById(R.id.true_button);
         falseButton = findViewById(R.id.false_button);
+        cheatButton = findViewById(R.id.cheat_button);
+        checkButton = findViewById(R.id.check_button);
         correctText = findViewById(R.id.info_text);
         correctText.setVisibility(View.GONE);
+        checkButton.setVisibility(View.GONE);
+        checkButton.setClickable(false);
+        internetButton = findViewById(R.id.internet_button);
+        internetButton.setVisibility(View.GONE);
+        internetButton.setClickable(false);
 
         if (savedInstanceState != null)
         {
             i = savedInstanceState.getInt("i");
             points = savedInstanceState.getInt("points");
             incorrect = savedInstanceState.getInt("incorrect");
+            cheated = savedInstanceState.getInt("cheated");
             answered = savedInstanceState.getInt("answered");
             questions0 = savedInstanceState.getBoolean("questions0");
             questions1 = savedInstanceState.getBoolean("questions1");
@@ -84,12 +101,26 @@ public class MainActivity extends AppCompatActivity {
             questions8 = savedInstanceState.getBoolean("questions8");
             questions9 = savedInstanceState.getBoolean("questions9");
 
+            if (Objects.equals(answered, 10))
+            {
+                setContentView(R.layout.activity_resume);
+                textViewresume = findViewById(R.id.question_resume);
+                resume = "Resume: \n Correct: " + Integer.toString(points) + "\n Incorrect: " + Integer.toString(incorrect) +  "\n Cheated (-5% for each): " + Integer.toString(cheated) + "\n Score: " + Integer.toString((points*100-cheated*50)/points_possible) + "%";
+                textViewresume.setText(resume);
+            }
+
             if (Objects.equals(questions[i].isChecked(), true))
             {
                 trueButton.setVisibility(View.GONE);
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
             if (Objects.equals(i, 0))
             {
@@ -99,6 +130,12 @@ public class MainActivity extends AppCompatActivity {
                     trueButton.setClickable(false);
                     falseButton.setVisibility(View.GONE);
                     falseButton.setClickable(false);
+                    cheatButton.setVisibility(View.GONE);
+                    cheatButton.setClickable(false);
+                    checkButton.setVisibility(View.VISIBLE);
+                    checkButton.setClickable(true);
+                    internetButton.setVisibility(View.VISIBLE);
+                    internetButton.setClickable(true);
                 }
             }
 
@@ -110,6 +147,12 @@ public class MainActivity extends AppCompatActivity {
                     trueButton.setClickable(false);
                     falseButton.setVisibility(View.GONE);
                     falseButton.setClickable(false);
+                    cheatButton.setVisibility(View.GONE);
+                    cheatButton.setClickable(false);
+                    checkButton.setVisibility(View.VISIBLE);
+                    checkButton.setClickable(true);
+                    internetButton.setVisibility(View.VISIBLE);
+                    internetButton.setClickable(true);
                 }
             }
 
@@ -121,6 +164,12 @@ public class MainActivity extends AppCompatActivity {
                     trueButton.setClickable(false);
                     falseButton.setVisibility(View.GONE);
                     falseButton.setClickable(false);
+                    cheatButton.setVisibility(View.GONE);
+                    cheatButton.setClickable(false);
+                    checkButton.setVisibility(View.VISIBLE);
+                    checkButton.setClickable(true);
+                    internetButton.setVisibility(View.VISIBLE);
+                    internetButton.setClickable(true);
                 }
             }
 
@@ -132,6 +181,12 @@ public class MainActivity extends AppCompatActivity {
                     trueButton.setClickable(false);
                     falseButton.setVisibility(View.GONE);
                     falseButton.setClickable(false);
+                    cheatButton.setVisibility(View.GONE);
+                    cheatButton.setClickable(false);
+                    checkButton.setVisibility(View.VISIBLE);
+                    checkButton.setClickable(true);
+                    internetButton.setVisibility(View.VISIBLE);
+                    internetButton.setClickable(true);
                 }
             }
 
@@ -143,6 +198,12 @@ public class MainActivity extends AppCompatActivity {
                     trueButton.setClickable(false);
                     falseButton.setVisibility(View.GONE);
                     falseButton.setClickable(false);
+                    cheatButton.setVisibility(View.GONE);
+                    cheatButton.setClickable(false);
+                    checkButton.setVisibility(View.VISIBLE);
+                    checkButton.setClickable(true);
+                    internetButton.setVisibility(View.VISIBLE);
+                    internetButton.setClickable(true);
                 }
             }
 
@@ -154,6 +215,12 @@ public class MainActivity extends AppCompatActivity {
                     trueButton.setClickable(false);
                     falseButton.setVisibility(View.GONE);
                     falseButton.setClickable(false);
+                    cheatButton.setVisibility(View.GONE);
+                    cheatButton.setClickable(false);
+                    checkButton.setVisibility(View.VISIBLE);
+                    checkButton.setClickable(true);
+                    internetButton.setVisibility(View.VISIBLE);
+                    internetButton.setClickable(true);
                 }
             }
 
@@ -165,6 +232,12 @@ public class MainActivity extends AppCompatActivity {
                     trueButton.setClickable(false);
                     falseButton.setVisibility(View.GONE);
                     falseButton.setClickable(false);
+                    cheatButton.setVisibility(View.GONE);
+                    cheatButton.setClickable(false);
+                    checkButton.setVisibility(View.VISIBLE);
+                    checkButton.setClickable(true);
+                    internetButton.setVisibility(View.VISIBLE);
+                    internetButton.setClickable(true);
                 }
             }
 
@@ -176,6 +249,12 @@ public class MainActivity extends AppCompatActivity {
                     trueButton.setClickable(false);
                     falseButton.setVisibility(View.GONE);
                     falseButton.setClickable(false);
+                    cheatButton.setVisibility(View.GONE);
+                    cheatButton.setClickable(false);
+                    checkButton.setVisibility(View.VISIBLE);
+                    checkButton.setClickable(true);
+                    internetButton.setVisibility(View.VISIBLE);
+                    internetButton.setClickable(true);
                 }
             }
 
@@ -187,6 +266,12 @@ public class MainActivity extends AppCompatActivity {
                     trueButton.setClickable(false);
                     falseButton.setVisibility(View.GONE);
                     falseButton.setClickable(false);
+                    cheatButton.setVisibility(View.GONE);
+                    cheatButton.setClickable(false);
+                    checkButton.setVisibility(View.VISIBLE);
+                    checkButton.setClickable(true);
+                    internetButton.setVisibility(View.VISIBLE);
+                    internetButton.setClickable(true);
                 }
             }
 
@@ -198,6 +283,12 @@ public class MainActivity extends AppCompatActivity {
                     trueButton.setClickable(false);
                     falseButton.setVisibility(View.GONE);
                     falseButton.setClickable(false);
+                    cheatButton.setVisibility(View.GONE);
+                    cheatButton.setClickable(false);
+                    checkButton.setVisibility(View.VISIBLE);
+                    checkButton.setClickable(true);
+                    internetButton.setVisibility(View.VISIBLE);
+                    internetButton.setClickable(true);
                 }
             }
 
@@ -223,6 +314,12 @@ public class MainActivity extends AppCompatActivity {
             trueButton.setClickable(false);
             falseButton.setVisibility(View.GONE);
             falseButton.setClickable(false);
+            cheatButton.setVisibility(View.GONE);
+            cheatButton.setClickable(false);
+            checkButton.setVisibility(View.VISIBLE);
+            checkButton.setClickable(true);
+            internetButton.setVisibility(View.VISIBLE);
+            internetButton.setClickable(true);
         }
 
         else
@@ -231,6 +328,12 @@ public class MainActivity extends AppCompatActivity {
             trueButton.setClickable(true);
             falseButton.setVisibility(View.VISIBLE);
             falseButton.setClickable(true);
+            cheatButton.setVisibility(View.VISIBLE);
+            cheatButton.setClickable(true);
+            checkButton.setVisibility(View.GONE);
+            checkButton.setClickable(false);
+            internetButton.setVisibility(View.GONE);
+            internetButton.setClickable(false);
         }
 
         if (Objects.equals(i, 0))
@@ -241,6 +344,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -252,6 +361,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -263,6 +378,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -274,6 +395,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -285,6 +412,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -296,6 +429,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -307,6 +446,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -318,6 +463,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -329,6 +480,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -340,6 +497,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -363,6 +526,12 @@ public class MainActivity extends AppCompatActivity {
             trueButton.setClickable(false);
             falseButton.setVisibility(View.GONE);
             falseButton.setClickable(false);
+            cheatButton.setVisibility(View.GONE);
+            cheatButton.setClickable(false);
+            checkButton.setVisibility(View.VISIBLE);
+            checkButton.setClickable(true);
+            internetButton.setVisibility(View.VISIBLE);
+            internetButton.setClickable(true);
         }
 
         else
@@ -371,6 +540,12 @@ public class MainActivity extends AppCompatActivity {
             trueButton.setClickable(true);
             falseButton.setVisibility(View.VISIBLE);
             falseButton.setClickable(true);
+            cheatButton.setVisibility(View.VISIBLE);
+            cheatButton.setClickable(true);
+            checkButton.setVisibility(View.GONE);
+            checkButton.setClickable(false);
+            internetButton.setVisibility(View.GONE);
+            internetButton.setClickable(false);
         }
         if (Objects.equals(i, 0))
         {
@@ -380,6 +555,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -391,6 +572,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -402,6 +589,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -413,6 +606,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -424,6 +623,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -435,6 +640,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -446,6 +657,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -457,6 +674,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -468,6 +691,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -479,6 +708,12 @@ public class MainActivity extends AppCompatActivity {
                 trueButton.setClickable(false);
                 falseButton.setVisibility(View.GONE);
                 falseButton.setClickable(false);
+                cheatButton.setVisibility(View.GONE);
+                cheatButton.setClickable(false);
+                checkButton.setVisibility(View.VISIBLE);
+                checkButton.setClickable(true);
+                internetButton.setVisibility(View.VISIBLE);
+                internetButton.setClickable(true);
             }
         }
 
@@ -512,13 +747,18 @@ public class MainActivity extends AppCompatActivity {
         answered += 1;
         trueButton.setVisibility(View.GONE);
         falseButton.setVisibility(View.GONE);
+        cheatButton.setVisibility(View.GONE);
+        checkButton.setVisibility(View.VISIBLE);
+        checkButton.setClickable(true);
+        internetButton.setVisibility(View.VISIBLE);
+        internetButton.setClickable(true);
         questions[i].setChecked(true);
 
         if (Objects.equals(answered, 10))
         {
             setContentView(R.layout.activity_resume);
             textViewresume = findViewById(R.id.question_resume);
-            resume = "Resume: \n Correct: " + Integer.toString(points) + "\n Incorrect: " + Integer.toString(incorrect) + "\n Score: " + Integer.toString(points*100/points_possible) + "%";
+            resume = "Resume: \n Correct: " + Integer.toString(points) + "\n Incorrect: " + Integer.toString(incorrect) +  "\n Cheated (-5% for each): " + Integer.toString(cheated) + "\n Score: " + Integer.toString((points*100-cheated*50)/points_possible) + "%";
             textViewresume.setText(resume);
         }
 
@@ -545,18 +785,42 @@ public class MainActivity extends AppCompatActivity {
         correctText.setVisibility(View.VISIBLE);
         trueButton.setVisibility(View.GONE);
         falseButton.setVisibility(View.GONE);
+        cheatButton.setVisibility(View.GONE);
+        checkButton.setVisibility(View.VISIBLE);
+        checkButton.setClickable(true);
         questions[i].setChecked(true);
+        internetButton.setVisibility(View.VISIBLE);
+        internetButton.setClickable(true);
 
         if (Objects.equals(answered, 10))
         {
             setContentView(R.layout.activity_resume);
             textViewresume = findViewById(R.id.question_resume);
-            resume = "Resume: \n Correct:" + Integer.toString(points) + "\n Incorrect: " + Integer.toString(incorrect) + "\n Score: " + Integer.toString(points*100/points_possible) + "%";
+            resume = "Resume: \n Correct: " + Integer.toString(points) + "\n Incorrect: " + Integer.toString(incorrect) +  "\n Cheated (-5% for each): " + Integer.toString(cheated) + "\n Score: " + Integer.toString((points*100-cheated*50)/points_possible) + "%";
             textViewresume.setText(resume);
         }
     }
 
-    public void retry(View view)
+    public void cheat(View view)
+    {
+        Intent intent = new Intent(this, CheatActivity.class);
+        intent.putExtra("key",questions[i].isAnswer());
+        startActivity(intent);
+        cheatButton.setVisibility(View.GONE);
+        cheatButton.setClickable(false);
+        cheated += 1;
+    }
+
+    public void check(View view)
+    {
+        Intent intent = new Intent(this, CheatActivity.class);
+        intent.putExtra("key", questions[i].isAnswer());
+        startActivity(intent);
+    }
+
+
+
+        public void retry(View view)
     {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
@@ -566,6 +830,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void internet(View view)
+    {
+        String string;
+        string= (String) textView.getText();
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.google.com/search?q=" + string));
+        startActivity(intent);
+    }
+
+
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -573,6 +847,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putInt("points", points);
         outState.putInt("incorrect", incorrect);
         outState.putInt("answered", answered);
+        outState.putInt("cheated", cheated);
         outState.putBoolean("questions0", questions[0].isChecked());
         outState.putBoolean("questions1", questions[1].isChecked());
         outState.putBoolean("questions2", questions[2].isChecked());

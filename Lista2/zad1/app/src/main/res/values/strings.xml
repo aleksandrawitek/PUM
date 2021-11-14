@@ -6,6 +6,13 @@
     <string name="next">NEXT</string>
     <string name="incorrect_answer">INCORRECT</string>
     <string name="retryString">RETRY</string>
+    <string name="cheatString">CHEAT</string>
+    <string name="backString">BACK</string>
+    <string name="checkString">CHECK</string>
+    <string name="internetString">"?"</string>
+
+
+
 
 
     <string name="question1">Was relative theory created by Isaac Newton?</string>

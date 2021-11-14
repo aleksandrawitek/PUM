@@ -7,6 +7,23 @@
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <Button
+            android:id="@+id/check_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="check"
+            android:text="@string/checkString" />
+        <Button
+            android:id="@+id/internet_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="internet"
+            android:text="@string/internetString" />
+    </LinearLayout>
     <TextView
         android:id="@+id/question_text"
         android:layout_width="wrap_content"
@@ -33,6 +50,14 @@
             android:text="@string/falseString"
             android:textStyle="bold"
             android:onClick="ansfalse"/>
+        <Button
+            android:id="@+id/cheat_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cheatString"
+            android:textStyle="bold"
+            android:onClick="cheat"/>
+
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
