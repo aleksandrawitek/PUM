@@ -10,5 +10,9 @@
 
 ### Lista 2
 
-- [ ] zad1 
+- [x] zad1 
+
+### Lista 3
+
+- [] zad1 
  
