@@ -6,26 +6,27 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+
 import java.util.LinkedList;
-import java.util.concurrent.LinkedBlockingDeque;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final LinkedList<String> crimeList = new LinkedList<>();
+    private final LinkedList<String> crimeList = new LinkedList<String>();
     private RecyclerView recyclerView;
-    private Crime crime;
+    private CrimeAdapter crimeAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //for (int i = 0; i < 50; i++)
-            //crimeList.addLast("Word" + i);
+        for (int i = 0; i < 50; i++)
+            crimeList.addLast("Crime" + i);
 
         recyclerView = findViewById(R.id.recyclerView);
-        crime = new Crime(this, crimeList);
-        recyclerView.setAdapter(crime);
+        crimeAdapter = new CrimeAdapter(this, crimeList);
+        recyclerView.setAdapter(crimeAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
 }
