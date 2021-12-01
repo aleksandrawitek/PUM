@@ -8,10 +8,11 @@ import android.os.Bundle;
 
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final LinkedList<String> crimeList = new LinkedList<String>();
+    private List<Crime> crimeList = CrimeLab.get(this).getCrimes();
     private RecyclerView recyclerView;
     private CrimeAdapter crimeAdapter;
 
@@ -19,10 +20,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        for (int i = 0; i < 50; i++)
-            crimeList.addLast("Crime" + i);
-
         recyclerView = findViewById(R.id.recyclerView);
         crimeAdapter = new CrimeAdapter(this, crimeList);
         recyclerView.setAdapter(crimeAdapter);

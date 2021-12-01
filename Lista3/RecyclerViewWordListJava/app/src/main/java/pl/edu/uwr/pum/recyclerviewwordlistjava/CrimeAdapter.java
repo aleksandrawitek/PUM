@@ -15,15 +15,17 @@ import java.util.List;
 
 public class CrimeAdapter extends RecyclerView.Adapter<CrimeAdapter.CrimeViewHolder> {
 
-    private final LinkedList<String> crimeList;
+    private List<Crime> crimeList;
+    private Context context;
     private LayoutInflater inflater;
 
-    public CrimeAdapter(Context context, LinkedList<String> crimeList) {
+    public CrimeAdapter(Context context, List<Crime> crimeList) {
         inflater = LayoutInflater.from(context);
         this.crimeList = crimeList;
+        this.context = context;
     }
     class CrimeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        public final TextView crimeText;
+        public TextView crimeText;
         final CrimeAdapter adapter;
 
         public CrimeViewHolder(@NonNull View itemView, CrimeAdapter adapter) {
@@ -46,8 +48,8 @@ public class CrimeAdapter extends RecyclerView.Adapter<CrimeAdapter.CrimeViewHol
 
     @Override
     public void onBindViewHolder(@NonNull CrimeAdapter.CrimeViewHolder holder, int position) {
-        String current = crimeList.get(position);
-        holder.crimeText.setText((CharSequence) current);
+        Crime current = crimeList.get(position);
+        holder.crimeText.setText(current.getTitle());
 
     }
 
