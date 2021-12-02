@@ -3,14 +3,14 @@ package pl.edu.uwr.pum.recyclerviewwordlistjava;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
+import android.icu.text.CaseMap;
 import android.os.Bundle;
 import android.view.View;
 
-
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -40,7 +40,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Intent intent = new Intent(getApplicationContext(),CrimeActivity.class);
-                intent.putExtra("Title", crimeList.get(position).getTitle());
+                UUID Id = crimeList.get(position).getId();
+                intent = intent.putExtra("Id", Id.toString());
                 startActivity(intent);
 
             }

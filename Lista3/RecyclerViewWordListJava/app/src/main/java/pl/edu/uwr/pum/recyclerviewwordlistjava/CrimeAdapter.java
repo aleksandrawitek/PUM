@@ -42,12 +42,7 @@ public class CrimeAdapter extends RecyclerView.Adapter<CrimeAdapter.CrimeViewHol
         }
         @Override
         public void onClick(View view){
-            listener.onClick(view, getLayoutPosition());//or adapter???
-            //int position = getLayoutPosition();
-            //Crime element = crimeList.get(position);
-            //Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("google.com"));
-            //context.startActivity(intent);
-            //adapter.notifyItemChanged(position);
+            listener.onClick(view, getLayoutPosition());
 
         }
     }
