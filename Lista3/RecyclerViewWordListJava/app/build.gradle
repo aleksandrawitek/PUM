@@ -6,7 +6,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "pl.edu.uwr.pum.recyclerviewwordlistjava"
+        applicationId "pl.edu.uwr.pum.crimeapp"
         minSdk 26
         targetSdk 31
         versionCode 1
