@@ -1,14 +1,13 @@
 package pl.edu.uwr.pum.recyclerviewwordlistjava;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.CalendarView;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.util.Calendar;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 import java.util.UUID;
 
 
@@ -22,10 +21,11 @@ public class CrimeActivity extends AppCompatActivity {
         setContentView(R.layout.crime_activity);
         EditText crimeTxt = findViewById(R.id.crimeTextView);
         CalendarView dateView = findViewById(R.id.calendarView);
+        CheckBox solvedBox = findViewById(R.id.solved);
         String crimeTitle = null;
         Date crimeDate = null;
         Crime crime = null;
-        Boolean crimeSolved;
+        Boolean crimeSolved = null;
         Bundle extras = getIntent().getExtras();
         if(extras != null){
             Id = extras.getString("Id");
@@ -35,8 +35,16 @@ public class CrimeActivity extends AppCompatActivity {
             crimeSolved = crime.getSolved();
 
         }
-        crimeTxt.setText(crimeDate.toString());
-        //dateView.setDate(crimeDate);
+        DateFormat df = new SimpleDateFormat("dd.MM.yyyy");
+        String dateString = df.format(crimeDate);
+        crimeTxt.setText(crimeTitle);
+        if (crimeSolved.equals(false)){
+            solvedBox.setChecked(false);
+
+        }
+        if (crimeSolved.equals(true)){
+            solvedBox.setChecked(true);
+        }
 
     }
 
