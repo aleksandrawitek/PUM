@@ -1,6 +1,7 @@
 package pl.edu.uwr.pum.recyclerviewwordlistjava;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -46,6 +47,16 @@ public class CrimeActivity extends AppCompatActivity {
             solvedBox.setChecked(true);
         }
 
+    }
+
+    public void delete(View view) {
+        Bundle extras = getIntent().getExtras();
+        Id = extras.getString("Id");
+        Crime crime;
+        crime = CrimeLab.getCrime(UUID.fromString(Id));
+        CrimeLab.deleteCrime(crime);
+        MainActivity.crimeAdapter.notifyDataSetChanged();
+        finish();
     }
 
 }

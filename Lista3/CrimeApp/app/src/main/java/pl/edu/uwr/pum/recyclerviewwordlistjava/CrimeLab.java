@@ -32,6 +32,12 @@ public class CrimeLab {
         }
     }
 
+    public static void deleteCrime(Crime crime) {
+        mCrimes.remove(crime);
+
+    }
+
+
     public List<Crime> getCrimes(){
         return mCrimes;
     }
@@ -44,4 +50,7 @@ public class CrimeLab {
             }
         }
         return null;
-    }}
+    }
+
+
+}

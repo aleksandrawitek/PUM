@@ -73,4 +73,8 @@ public class CrimeAdapter extends RecyclerView.Adapter<CrimeAdapter.CrimeViewHol
 
 
 
-}
+    }
+
+
+
+

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.icu.text.CaseMap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
 import java.util.Date;
 import java.util.List;
@@ -16,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Crime> crimeList = CrimeLab.get(this).getCrimes();
     private RecyclerView recyclerView;
-    private CrimeAdapter crimeAdapter;
+    public static CrimeAdapter crimeAdapter;
     private CrimeAdapter.RecyclerViewClickListener listener;
 
     @Override
@@ -46,5 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         };
+    }
+
+    public void add(View view) {
     }
 }
