@@ -50,5 +50,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void add(View view) {
+        Date date = new Date();
+        Crime crime = new Crime();
+        crime.setDate(date);
+        crime.setTitle("Crime Title");
+        UUID Id = UUID.randomUUID();
+        crime.setId(Id);
+        CrimeLab.addCrime(crime);
+        crimeAdapter.notifyDataSetChanged();
+        Intent intent = new Intent(getApplicationContext(),CrimeActivity.class);
+        intent = intent.putExtra("Id", Id.toString());
+        startActivity(intent);
+
+
     }
 }
