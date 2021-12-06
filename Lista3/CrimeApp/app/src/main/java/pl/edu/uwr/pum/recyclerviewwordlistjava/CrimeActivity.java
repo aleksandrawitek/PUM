@@ -2,12 +2,14 @@ package pl.edu.uwr.pum.recyclerviewwordlistjava;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -56,7 +58,31 @@ public class CrimeActivity extends AppCompatActivity {
         crime = CrimeLab.getCrime(UUID.fromString(Id));
         CrimeLab.deleteCrime(crime);
         MainActivity.crimeAdapter.notifyDataSetChanged();
-        finish();
     }
 
+    @Override
+    public void onBackPressed() {
+        EditText editText = findViewById(R.id.crimeTextView);
+        CheckBox checkBox = findViewById(R.id.solved);
+        CalendarView dateView = findViewById(R.id.calendarView);
+        String newTitle = editText.getText().toString();
+        Bundle extras = getIntent().getExtras();
+        Id = extras.getString("Id");
+        Crime crime;
+        crime = CrimeLab.getCrime(UUID.fromString(Id));
+        crime.setTitle(newTitle);
+        boolean checked = checkBox.isChecked();
+        crime.setSolved(checked);
+        //Calendar calendar = dateView.getInstance();
+        //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        //Date date = new Date(dateView.getDate());
+        //crime.setDate(date);
+        MainActivity.crimeAdapter.notifyDataSetChanged();
+        super.onBackPressed();}
+
+
+
 }
+
+
+

@@ -7,6 +7,8 @@ import android.preference.PreferenceScreen;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,12 +33,14 @@ public class CrimeAdapter extends RecyclerView.Adapter<CrimeAdapter.CrimeViewHol
     class CrimeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public TextView crimeText;
         final CrimeAdapter adapter;
+        public ImageView warning;
 
         public CrimeViewHolder(@NonNull View itemView, CrimeAdapter adapter) {
             super(itemView);
 
             itemView.setOnClickListener(this);
             crimeText = itemView.findViewById(R.id.crimes);
+            warning = itemView.findViewById(R.id.warning);
             this.adapter = adapter;
             itemView.setOnClickListener(this);
         }
@@ -57,6 +61,11 @@ public class CrimeAdapter extends RecyclerView.Adapter<CrimeAdapter.CrimeViewHol
     @Override
     public void onBindViewHolder(@NonNull CrimeAdapter.CrimeViewHolder holder, int position) {
         Crime current = crimeList.get(position);
+        boolean solved = current.getSolved();
+        if(solved == true)
+        {
+            holder.warning.setVisibility(View.INVISIBLE);
+        }
         holder.crimeText.setText(current.getTitle()+"\n"+current.getDate());
 
     }
