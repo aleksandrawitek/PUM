@@ -14,5 +14,17 @@
 
 ### Lista 3
 
-- [ ] zad1 
+- [x] zad1 
+
+### Lista 4
+
+- [ ] zad1
+
+### Lista 5
+
+- [ ] zad1
+
+### Lista 6
+
+- [ ] zad1
  
