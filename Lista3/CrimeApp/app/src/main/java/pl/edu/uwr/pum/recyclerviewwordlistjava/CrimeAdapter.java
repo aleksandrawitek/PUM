@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.Date;
 import java.util.List;
 
 public class CrimeAdapter extends RecyclerView.Adapter<CrimeAdapter.CrimeViewHolder> {
@@ -65,6 +66,10 @@ public class CrimeAdapter extends RecyclerView.Adapter<CrimeAdapter.CrimeViewHol
         if(solved == true)
         {
             holder.warning.setVisibility(View.INVISIBLE);
+        }
+        if(solved == false)
+        {
+            holder.warning.setVisibility(View.VISIBLE);
         }
         holder.crimeText.setText(current.getTitle()+"\n"+current.getDate());
 

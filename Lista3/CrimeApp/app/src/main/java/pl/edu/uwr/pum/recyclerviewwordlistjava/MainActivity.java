@@ -58,10 +58,12 @@ public class MainActivity extends AppCompatActivity {
         UUID Id = UUID.randomUUID();
         crime.setId(Id);
         CrimeLab.addCrime(crime);
+        int last = crimeAdapter.getItemCount()-1;
         crimeAdapter.notifyDataSetChanged();
         Intent intent = new Intent(getApplicationContext(),CrimeActivity.class);
         intent = intent.putExtra("Id", Id.toString());
         startActivity(intent);
+        recyclerView.scrollToPosition(last);
 
 
     }

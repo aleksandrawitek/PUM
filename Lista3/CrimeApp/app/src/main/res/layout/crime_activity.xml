@@ -83,11 +83,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CalendarView
+    <TextView
         android:id="@+id/calendarView"
-        android:layout_width="356dp"
-        android:layout_height="269dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="342dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="64dp"
+        android:text="Set Date"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/divider3" />
@@ -96,8 +98,8 @@
         android:id="@+id/solved"
         android:layout_width="91dp"
         android:layout_height="48dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="300dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="136dp"
         android:text="Solved"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/calendarView" />
@@ -106,10 +108,12 @@
         android:id="@+id/delete"
         android:layout_width="379dp"
         android:layout_height="52dp"
-        android:text="Delete"
         android:onClick="delete"
+        android:text="Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.343"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/solved" />
+        app:layout_constraintTop_toBottomOf="@+id/solved"
+        app:layout_constraintVertical_bias="0.702" />
 </androidx.constraintlayout.widget.ConstraintLayout>
