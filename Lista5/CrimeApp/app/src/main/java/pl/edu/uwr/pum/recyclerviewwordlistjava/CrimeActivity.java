@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -38,8 +36,6 @@ public class CrimeActivity extends AppCompatActivity {
         String crimeTitle = null;
         Crime crime = null;
         Boolean crimeSolved = null;
-        //ViewPager2 viewPager2 = findViewById(R.id.viewpager2);
-        //viewPager2.setAdapter(MainActivity.crimeAdapter);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             Id = extras.getString("Id");
