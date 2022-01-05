@@ -126,12 +126,7 @@ public class CrimeActivity extends AppCompatActivity {
     }
 
 
+    public void image(View view) {
 
-
-
-
-
-
-
-
+    }
 }

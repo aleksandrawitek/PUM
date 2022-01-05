@@ -87,19 +87,57 @@
         android:id="@+id/calendarView"
         android:layout_width="342dp"
         android:layout_height="77dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="200dp"
         android:text="Set Date"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.231"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/divider3" />
+
+    <ImageView
+        android:layout_width="126dp"
+        android:layout_height="118dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="41dp"
+        android:layout_marginBottom="41dp"
+        android:id="@+id/crimeImage"
+        android:text="Image"
+        app:layout_constraintBottom_toTopOf="@+id/calendarView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/divider3" />
+
+    <ImageButton
+        android:id="@+id/crimeImagebtn"
+        android:layout_width="110dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="101dp"
+        android:onClick="image"
+        app:layout_constraintBottom_toTopOf="@+id/calendarView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/divider3"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="59dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="101dp"
+        android:text="Choose Image"
+        app:layout_constraintBottom_toTopOf="@+id/calendarView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/divider3"
+        app:layout_constraintVertical_bias="1.0" />
 
     <CheckBox
         android:id="@+id/solved"
         android:layout_width="91dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="92dp"
         android:text="Solved"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/calendarView" />
@@ -112,8 +150,8 @@
         android:text="Delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.343"
+        app:layout_constraintHorizontal_bias="0.031"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/solved"
-        app:layout_constraintVertical_bias="0.702" />
+        app:layout_constraintVertical_bias="0.414" />
 </androidx.constraintlayout.widget.ConstraintLayout>
