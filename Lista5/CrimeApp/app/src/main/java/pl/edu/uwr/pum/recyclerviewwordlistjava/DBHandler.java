@@ -10,7 +10,6 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "crimes.db";
     public static final String TABLE_CRIMES = "crimestab";
-    public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_CRIMEID = "crimeid";
     public static final String COLUMN_DATE = "date";
@@ -25,8 +24,6 @@ public class DBHandler extends SQLiteOpenHelper {
         String CREATE_CRIMES_TABLE = "CREATE TABLE " +
                 TABLE_CRIMES +
                 "(" +
-                COLUMN_ID + " " +
-                "INTEGER PRIMARY KEY," +
                 COLUMN_NAME +
                 " TEXT," +
                 COLUMN_CRIMEID +

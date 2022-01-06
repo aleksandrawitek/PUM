@@ -42,10 +42,38 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
+
+    @Override
+    protected void onDestroy() {
+        dbHandler.close();
+        super.onDestroy();
+    }
+
+    private void getCrimes(){
+        crimeList.clear();
+        Cursor cursor = dbHandler.getCrime();
+        if(cursor.getCount() == 0)
+            Toast.makeText(this, "EMPTY", Toast.LENGTH_SHORT).show();
+        else{
+            while(cursor.moveToNext()){
+                String title = cursor.getString(1);
+                UUID id = UUID.fromString(cursor.getString(2));
+                Date date = new Date(cursor.getString(3));
+                Boolean solved = cursor.getInt(4) > 0;
+                Crime crime = new Crime();
+                crime.setId(id);
+                crime.setTitle(title);
+                crime.setDate(date);
+                crime.setSolved(solved);
+                crimeList.add(crime);
+            }
+
+            }
+    }
+
     private void setOnClickListener(){
         listener = new CrimeAdapter.RecyclerViewClickListener() {
-            @Override
-            public void onClick(View view, int position) {
+            @Override public void onClick(View view, int position) {
                 Intent intent = new Intent(getApplicationContext(),CrimeActivity.class);
                 UUID Id = crimeList.get(position).getId();
                 intent = intent.putExtra("Id", Id.toString());
@@ -60,12 +88,12 @@ public class MainActivity extends AppCompatActivity {
         Crime crime = new Crime();
         crime.setDate(date);
         crime.setTitle("Crime Title");
+        int last = dbHandler.getCrime().getCount();
         UUID Id = UUID.randomUUID();
         crime.setId(Id);
-        CrimeLab.addCrime(crime);
+        crimeAdapter.notifyDataSetChanged();
         dbHandler.addCrime(crime);
         getCrimes();
-        int last = crimeAdapter.getItemCount()-1;
         crimeAdapter.notifyDataSetChanged();
         Intent intent = new Intent(getApplicationContext(),CrimeActivity.class);
         intent = intent.putExtra("Id", Id.toString());
@@ -74,34 +102,5 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    private void getCrimes(){
-        crimeList.clear();
-        Cursor cursor = dbHandler.getCrime();
-
-        if(cursor.getCount() == 0)
-            Toast.makeText(this, "EMPTY", Toast.LENGTH_SHORT).show();
-        else{
-            while(cursor.moveToNext()){
-                UUID id = UUID.fromString(cursor.getString(3));
-                String title = cursor.getString(2);
-                Date date = new Date(cursor.getString(4));
-                Boolean solved = cursor.getInt(5) > 0;
-                Crime crime = new Crime();
-                crime.setId(id);
-                crime.setTitle(title);
-                crime.setDate(date);
-                crime.setSolved(solved);
-                crimeList.add(crime);
-            }
-        }
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        dbHandler.close();
-        super.onDestroy();
-    }
-
 
 }
