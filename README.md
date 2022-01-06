@@ -22,7 +22,7 @@
 
 ### Lista 5
 
-- [ ] zad1
+- [x] zad1
 
 ### Lista 6
 
