@@ -10,6 +10,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -78,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 UUID Id = crimeList.get(position).getId();
                 intent = intent.putExtra("Id", Id.toString());
                 startActivity(intent);
+                overridePendingTransition(0, 0);
+                finish();
+                overridePendingTransition(0, 0);
 
             }
         };
@@ -98,9 +102,50 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(),CrimeActivity.class);
         intent = intent.putExtra("Id", Id.toString());
         startActivity(intent);
+        overridePendingTransition(0, 0);
         recyclerView.scrollToPosition(last);
+    }
 
+    public void search(View view)
+    {
+        EditText crimeName = findViewById(R.id.crimeName);
+        crimeList.clear();
+        Cursor cursor = dbHandler.searchCrime(crimeName.getText().toString());
+        crimeAdapter.notifyDataSetChanged();
+        while(cursor.moveToNext()){
+            String title = cursor.getString(1);
+            UUID id = UUID.fromString(cursor.getString(2));
+            Date date = new Date(cursor.getString(3));
+            Boolean solved = cursor.getInt(4) > 0;
+            Crime crime = new Crime();
+            crime.setId(id);
+            crime.setTitle(title);
+            crime.setDate(date);
+            crime.setSolved(solved);
+            crimeList.add(crime);
+        }
 
+    }
+
+    public void clear (View view)
+    {
+        EditText crimeName = findViewById(R.id.crimeName);
+        crimeList.clear();
+        crimeName.setText("Crime Name");
+        Cursor cursor = dbHandler.searchCrime("");
+        crimeAdapter.notifyDataSetChanged();
+        while(cursor.moveToNext()){
+            String title = cursor.getString(1);
+            UUID id = UUID.fromString(cursor.getString(2));
+            Date date = new Date(cursor.getString(3));
+            Boolean solved = cursor.getInt(4) > 0;
+            Crime crime = new Crime();
+            crime.setId(id);
+            crime.setTitle(title);
+            crime.setDate(date);
+            crime.setSolved(solved);
+            crimeList.add(crime);
+        }
     }
 
 }

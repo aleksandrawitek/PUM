@@ -59,4 +59,44 @@ public class DBHandler extends SQLiteOpenHelper {
         db.insert(TABLE_CRIMES, null, values);
         db.close();
     }
+
+
+    public void deleteCrime(Crime crime){
+
+
+        String query = "SELECT * FROM " +
+                TABLE_CRIMES +
+                " WHERE " +
+                COLUMN_CRIMEID +
+                "=" +
+                crime.getId().toString();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_CRIMES, COLUMN_CRIMEID + " = ?",new String[]{crime.getId().toString()});
+        db.close();
+    }
+
+    public void updateCrime(Crime crime){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, crime.getTitle());
+        values.put(COLUMN_DATE, crime.getDate().toString());
+        values.put(COLUMN_SOLVED, crime.getSolved());
+        db.update(TABLE_CRIMES, values, COLUMN_CRIMEID + " = ?", new String[]{crime.getId().toString()});
+        db.close();
+    }
+
+    public Cursor searchCrime(String crimeName) {
+
+        String query;
+        if(crimeName.equals("")) {
+            query = "SELECT * FROM " + TABLE_CRIMES;
+        }
+        else{
+            query = "SELECT * FROM " + TABLE_CRIMES + " WHERE " + COLUMN_NAME + " LIKE \"" + "%" + crimeName + "%" + "\"";
+        }
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery(query,null);
+    }
 }
