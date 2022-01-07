@@ -1,6 +1,7 @@
 package pl.edu.uwr.pum.recyclerviewwordlistjava;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -24,6 +25,7 @@ import java.util.UUID;
 public class CrimeActivity extends AppCompatActivity {
 
     private String Id;
+    DBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class CrimeActivity extends AppCompatActivity {
         String crimeTitle = null;
         Crime crime = null;
         Boolean crimeSolved = null;
+        dbHandler = new DBHandler(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             Id = extras.getString("Id");
@@ -110,8 +113,15 @@ public class CrimeActivity extends AppCompatActivity {
         crime.setTitle(newTitle);
         boolean checked = checkBox.isChecked();
         crime.setSolved(checked);
+        dbHandler.updateCrime(crime);
         MainActivity.crimeAdapter.notifyDataSetChanged();
         finish();
+        overridePendingTransition(0, 0);
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+
+
     }
     //super.onBackPressed();}
 
@@ -120,13 +130,17 @@ public class CrimeActivity extends AppCompatActivity {
         Id = extras.getString("Id");
         Crime crime;
         crime = CrimeLab.getCrime(UUID.fromString(Id));
-        CrimeLab.deleteCrime(crime);
+        //CrimeLab.deleteCrime(crime);
+        dbHandler.deleteCrime(crime);
         MainActivity.crimeAdapter.notifyDataSetChanged();
         finish();
+        overridePendingTransition(0, 0);
+
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(0, 0);
+
+
     }
 
-
-    public void image(View view) {
-
-    }
 }

@@ -20,16 +20,6 @@ public class CrimeLab {
 
     private CrimeLab(Context context){
         mCrimes = new ArrayList<>();
-        Date date = new Date();
-
-        for(int i = 0; i < 50; i++){
-            Crime crime = new Crime();
-            crime.setId(UUID.randomUUID());
-            crime.setTitle("Crime #" + i);
-            crime.setDate(date);
-            crime.setSolved(i % 2 == 0);
-            mCrimes.add(crime);
-        }
     }
 
     public static void deleteCrime(Crime crime) {
@@ -39,8 +29,6 @@ public class CrimeLab {
 
     public static void addCrime(Crime crime) {
         mCrimes.add(crime);
-
-
 
     }
 
