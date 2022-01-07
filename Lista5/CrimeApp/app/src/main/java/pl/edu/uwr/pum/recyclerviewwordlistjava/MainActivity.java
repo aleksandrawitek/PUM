@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, "EMPTY", Toast.LENGTH_SHORT).show();
         else{
             while(cursor.moveToNext()){
+                int idtable = cursor.getInt(0);
                 String title = cursor.getString(1);
                 UUID id = UUID.fromString(cursor.getString(2));
                 Date date = new Date(cursor.getString(3));
@@ -113,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = dbHandler.searchCrime(crimeName.getText().toString());
         crimeAdapter.notifyDataSetChanged();
         while(cursor.moveToNext()){
+
+            int idtable = cursor.getInt(0);
             String title = cursor.getString(1);
             UUID id = UUID.fromString(cursor.getString(2));
             Date date = new Date(cursor.getString(3));
@@ -135,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         Cursor cursor = dbHandler.searchCrime("");
         crimeAdapter.notifyDataSetChanged();
         while(cursor.moveToNext()){
+            int idtable = cursor.getInt(0);
             String title = cursor.getString(1);
             UUID id = UUID.fromString(cursor.getString(2));
             Date date = new Date(cursor.getString(3));
