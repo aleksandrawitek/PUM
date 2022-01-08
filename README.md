@@ -26,7 +26,7 @@
 
 ### Lista 6
 
-- [ ] zad1
+- [x] zad1 - bez zapisywania do bazy danych 
 
 ### Lista 7
 
