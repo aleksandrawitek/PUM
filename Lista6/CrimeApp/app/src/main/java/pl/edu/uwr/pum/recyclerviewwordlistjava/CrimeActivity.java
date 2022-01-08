@@ -11,7 +11,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -49,7 +48,7 @@ public class CrimeActivity extends AppCompatActivity {
     DBHandler dbHandler;
     private static final int CAMERA_INTENT = 2;
     private CrimeActivityBinding binding;
-    private Uri savePicturePath=null;
+    private Uri savePicturePath;
 
 
 
@@ -59,7 +58,7 @@ public class CrimeActivity extends AppCompatActivity {
         setContentView(R.layout.crime_activity);
         EditText crimeTxt = findViewById(R.id.crimeTextView);
         CheckBox solvedBox = findViewById(R.id.solved);
-        ImageView crimePic = findViewById(R.id.cphoto);
+        ImageView crimePic = findViewById(R.id.image_view);
         TextView dateTxt = findViewById(R.id.calendarView);
         binding = CrimeActivityBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
@@ -81,7 +80,6 @@ public class CrimeActivity extends AppCompatActivity {
 
         crimeTxt.setText(crimeTitle);
         dateTxt.setText(date.toString());
-        //crimePhoto.
 
         if (crimeSolved.equals(false)) {
             solvedBox.setChecked(false);
@@ -146,6 +144,7 @@ public class CrimeActivity extends AppCompatActivity {
         boolean checked = checkBox.isChecked();
         crime.setSolved(checked);
         dbHandler.updateCrime(crime);
+        //dbHandler.updateImage(crime);
         MainActivity.crimeAdapter.notifyDataSetChanged();
         finish();
         overridePendingTransition(0, 0);
@@ -185,6 +184,7 @@ public class CrimeActivity extends AppCompatActivity {
                 Intent intent  = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, CAMERA_INTENT);
 
+
             }
             @Override
             public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
@@ -204,15 +204,13 @@ public class CrimeActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == CAMERA_INTENT) {
-                Bundle extras = getIntent().getExtras();
-                Id = extras.getString("Id");
                 Crime crime;
                 crime = CrimeLab.getCrime(UUID.fromString(Id));
                 Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
-                binding.cphoto.setImageBitmap(thumbnail);
+                ImageView imageView = findViewById(R.id.image_view);
+                imageView.setImageBitmap(thumbnail);
                 savePicturePath = savePicture(thumbnail);
                 crime.setImage(savePicturePath.toString());
-                Log.d("PICTURE", "Path" + savePicturePath);
             }
         }}
 

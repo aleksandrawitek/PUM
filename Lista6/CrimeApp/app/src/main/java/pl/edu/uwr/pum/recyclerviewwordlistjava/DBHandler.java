@@ -30,9 +30,10 @@ public class DBHandler extends SQLiteOpenHelper {
                 COLUMN_CRIMEID +
                 " TEXT," +
                 COLUMN_DATE +
-                " TEXT," + COLUMN_SOLVED +
-                " BOOLEAN," +
-                COLUMN_IMAGE + " TEXT"+
+                " TEXT," +
+                //COLUMN_IMAGE + " TEXT,"+
+                COLUMN_SOLVED +
+                " BOOLEAN" +
                 ")";
 
         db.execSQL(CREATE_CRIMES_TABLE);
@@ -57,7 +58,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, crime.getTitle());
         values.put(COLUMN_DATE, crime.getDate().toString());
         values.put(COLUMN_SOLVED, crime.getSolved());
-        values.put(COLUMN_IMAGE,crime.getImage());
+        //values.put(COLUMN_IMAGE,crime.getImage());
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_CRIMES, null, values);
         db.close();
@@ -86,7 +87,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(COLUMN_NAME, crime.getTitle());
         values.put(COLUMN_DATE, crime.getDate().toString());
         values.put(COLUMN_SOLVED, crime.getSolved());
-        values.put(COLUMN_IMAGE, crime.getImage());
+        //values.put(COLUMN_IMAGE, crime.getImage());
         db.update(TABLE_CRIMES, values, COLUMN_CRIMEID + " = ?", new String[]{crime.getId().toString()});
         db.close();
     }
@@ -103,4 +104,5 @@ public class DBHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery(query,null);
     }
+
 }

@@ -1,18 +1,15 @@
 package pl.edu.uwr.pum.recyclerviewwordlistjava;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import android.content.Intent;
-import android.database.Cursor;
-import android.icu.text.CaseMap;
-import android.media.Image;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import java.util.Date;
 import java.util.List;
@@ -62,11 +59,13 @@ public class MainActivity extends AppCompatActivity {
                 UUID id = UUID.fromString(cursor.getString(2));
                 Date date = new Date(cursor.getString(3));
                 Boolean solved = cursor.getInt(4) > 0;
+                //String photo = cursor.getString(5);
                 Crime crime = new Crime();
                 crime.setId(id);
                 crime.setTitle(title);
                 crime.setDate(date);
                 crime.setSolved(solved);
+                //crime.setImage(photo);
                 crimeList.add(crime);
             }
 
@@ -120,11 +119,13 @@ public class MainActivity extends AppCompatActivity {
             UUID id = UUID.fromString(cursor.getString(2));
             Date date = new Date(cursor.getString(3));
             Boolean solved = cursor.getInt(4) > 0;
+            //String photo = cursor.getString(5);
             Crime crime = new Crime();
             crime.setId(id);
             crime.setTitle(title);
             crime.setDate(date);
             crime.setSolved(solved);
+            //crime.setImage(photo);
             crimeList.add(crime);
         }
 
@@ -143,11 +144,13 @@ public class MainActivity extends AppCompatActivity {
             UUID id = UUID.fromString(cursor.getString(2));
             Date date = new Date(cursor.getString(3));
             Boolean solved = cursor.getInt(4) > 0;
+            //String photo = cursor.getString(5);
             Crime crime = new Crime();
             crime.setId(id);
             crime.setTitle(title);
             crime.setDate(date);
             crime.setSolved(solved);
+            //crime.setImage(photo);
             crimeList.add(crime);
         }
     }
