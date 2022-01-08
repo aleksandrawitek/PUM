@@ -1,31 +1,57 @@
 package pl.edu.uwr.pum.recyclerviewwordlistjava;
-
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import java.text.DateFormat;
+
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.Month;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
+
+import pl.edu.uwr.pum.recyclerviewwordlistjava.databinding.CrimeActivityBinding;
 
 
 public class CrimeActivity extends AppCompatActivity {
 
     private String Id;
     DBHandler dbHandler;
+    private static final int CAMERA_INTENT = 2;
+    private CrimeActivityBinding binding;
+    private Uri savePicturePath=null;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,11 +59,15 @@ public class CrimeActivity extends AppCompatActivity {
         setContentView(R.layout.crime_activity);
         EditText crimeTxt = findViewById(R.id.crimeTextView);
         CheckBox solvedBox = findViewById(R.id.solved);
+        ImageView crimePic = findViewById(R.id.cphoto);
         TextView dateTxt = findViewById(R.id.calendarView);
+        binding = CrimeActivityBinding.inflate(getLayoutInflater());
+        View view = binding.getRoot();
         Date date = null;
         String crimeTitle = null;
         Crime crime = null;
         Boolean crimeSolved = null;
+        String crimePhoto = null;
         dbHandler = new DBHandler(this);
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -46,10 +76,12 @@ public class CrimeActivity extends AppCompatActivity {
             crimeTitle = crime.getTitle();
             crimeSolved = crime.getSolved();
             date = crime.getDate();
+            crimePhoto = crime.getImage();
         }
 
         crimeTxt.setText(crimeTitle);
         dateTxt.setText(date.toString());
+        //crimePhoto.
 
         if (crimeSolved.equals(false)) {
             solvedBox.setChecked(false);
@@ -142,5 +174,83 @@ public class CrimeActivity extends AppCompatActivity {
 
 
     }
+
+    public void photo(View view) {
+
+        Dexter.withContext(this).withPermission(
+                Manifest.permission.CAMERA
+        ).withListener(new PermissionListener() {
+            @Override
+            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                Intent intent  = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(intent, CAMERA_INTENT);
+
+            }
+            @Override
+            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+
+            }
+            @Override
+            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                showRationaleDialog();
+            }
+        }).onSameThread().check();
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == CAMERA_INTENT) {
+                Bundle extras = getIntent().getExtras();
+                Id = extras.getString("Id");
+                Crime crime;
+                crime = CrimeLab.getCrime(UUID.fromString(Id));
+                Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
+                binding.cphoto.setImageBitmap(thumbnail);
+                savePicturePath = savePicture(thumbnail);
+                crime.setImage(savePicturePath.toString());
+                Log.d("PICTURE", "Path" + savePicturePath);
+            }
+        }}
+
+    private Uri savePicture(Bitmap bitmap) {
+        ContextWrapper wrapper = new ContextWrapper(getApplicationContext());
+        File file = wrapper.getDir("myGallery", Context.MODE_PRIVATE);
+        file = new File(file, UUID.randomUUID().toString() + ".jpg");
+
+        try {
+            OutputStream stream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            stream.flush();
+            stream.close();
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return Uri.parse(file.getAbsolutePath());
+
+    }
+
+
+    private void showRationaleDialog() {
+        new AlertDialog.Builder(this)
+                .setMessage("This feature requires permissions")
+                .setPositiveButton("Ask me", (dialog, which) -> {
+                    try {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        Uri uri = Uri.fromParts("package", getPackageName(), null);
+                        intent.setData(uri);
+                        startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                })
+                .setNegativeButton("CANCEL", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
 
 }

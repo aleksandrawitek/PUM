@@ -8,6 +8,7 @@ public class Crime {
     private UUID mId;
     private String mTitle;
     private Date mDate;
+    private String mImage;
     private boolean mSolved;
 
     public void setId(UUID Id){
@@ -15,6 +16,9 @@ public class Crime {
 
     public void setTitle(String Title){
         this.mTitle = Title;}
+
+    public void setImage(String Image){
+        this.mImage = Image;}
 
     public void setDate(Date Date){
         this.mDate = Date;}
@@ -25,7 +29,6 @@ public class Crime {
     public boolean getSolved(){
         return this.mSolved;}
 
-
     public UUID getId() {
         return mId;}
 
@@ -35,4 +38,7 @@ public class Crime {
     public Date getDate(){
         return mDate;}
 
+    public String getImage() {
+        return mImage;
+    }
 }
