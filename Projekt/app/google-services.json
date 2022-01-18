@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1005524921626",
+    "firebase_url": "https://awitekprojekt-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "awitekprojekt",
     "storage_bucket": "awitekprojekt.appspot.com"
   },
@@ -14,13 +15,21 @@
       },
       "oauth_client": [
         {
+          "client_id": "1005524921626-54grsbuc5iolbp6npol2j22lukrh4nib.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pl.edu.uwr.pum.awitekprojekt",
+            "certificate_hash": "a46cefb00ae36109d66425f212f3cceff7f58c88"
+          }
+        },
+        {
           "client_id": "1005524921626-88ti8v1o3p4g3okj7tr8hivbkmd1vjfo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDYuDy28MA0si26l4zTPe3A3bE7GH07R08"
+          "current_key": "AIzaSyDbC-MzyAAGtSIiBwVaQPUfNmnX1jE9rao"
         }
       ],
       "services": {
