@@ -55,6 +55,10 @@ Główne założenia:
 
 w trakcie tworzenia aplikacji mogą zostać jeszcze dodane nowe funkcjonalości. 
 
+<b> GUI: </b>
+
+- opracowane przeze mnie grafiki w Canvie (unikalne, stworzone na potrzeby projektu)
+
 <b> Logowanie: </b>
 
 - za pomocą konta Google
