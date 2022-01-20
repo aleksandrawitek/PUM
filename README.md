@@ -47,10 +47,16 @@ Wpis zawiera kwotę, opis, datę itp.
 Główne założenia:
 
 - [ ] dopracowane, przejrzyste GUI
-- [ ] logowanie 
+- [x] logowanie 
 - [ ] połączenie z bazą danych, do której będą dodawane wpisy odnośnie wydatków
 - [ ] wyświetlanie danych za pomocą recyclerview
 - [ ] CRUD
 - [ ] alertDialogi
 
 w trakcie tworzenia aplikacji mogą zostać jeszcze dodane nowe funkcjonalości. 
+
+<b> Logowanie: </b>
+
+- za pomocą konta Google
+- łączenie z FireBase, gdzie przechowuję w GoogleCloud bazę danych wykorzystaną w projekcie
+
