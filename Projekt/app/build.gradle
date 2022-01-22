@@ -45,4 +45,11 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-auth:20.0.1'
 
+    //potrzebne do activity_main
+
+    implementation 'com.google.android.material:material:1.2.1'
+
+    //cardview
+
+
 }
