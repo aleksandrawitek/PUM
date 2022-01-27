@@ -4,8 +4,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.icu.text.DateFormat;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,29 +28,41 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private TextView total;
+    private TextView totalView;
     private RecyclerView recyclerView;
     private FloatingActionButton floatingActionButton;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference reference;
     private String userId = "";
     private ProgressDialog progressDialog;
+    private ItemAdapter itemAdapter;
+    private List<Data> dataList;
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        total = findViewById(R.id.total_spend);
+        totalView = findViewById(R.id.total_spend);
         recyclerView = findViewById(R.id.recycler_view);
         floatingActionButton = findViewById(R.id.floating_button);
         firebaseAuth = FirebaseAuth.getInstance();
@@ -63,6 +78,73 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
+
+        //https://developer.android.com/reference/androidx/recyclerview/widget/LinearLayoutManager
+
+        recyclerView = findViewById(R.id.recycler_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setStackFromEnd(true);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        dataList = new ArrayList<>();
+        itemAdapter = new ItemAdapter(MainActivity.this, dataList);
+        recyclerView.setAdapter(itemAdapter);
+        
+        getItems();
+
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void getItems() {
+
+        //"wyciagniecie" tylko tych danych z bazy z dzisiejsza data
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Calendar cal = Calendar.getInstance();
+        String date = dateFormat.format(cal.getTime());
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("expenses").child(userId);
+        Query query = reference.orderByChild("date").equalTo(date);
+        query.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                dataList.clear();
+                for (DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Data data1 = dataSnapshot.getValue(Data.class);
+                    String item = data1.getItem();
+                    String note = data1.getNotes();
+                    int amount = data1.getAmount();
+                    String date = data1.getDate();
+                    String id = data1.getId();
+                    //dataList.add(new Data(item,date,id,note,amount));
+                    dataList.add(data1);
+                }
+                itemAdapter.notifyDataSetChanged();
+
+
+                //podsumowanie wydatkow na dany dzien i zaktualizowanie odpowiednio text view
+                int totalAmount = 0;
+                for (DataSnapshot ds : snapshot.getChildren()){
+                    Map< String, Object> map = (Map<String, Object>) ds.getValue();
+                    Object total = map.get("amount");
+                    int pTotal = Integer.parseInt(String.valueOf(total));
+                    totalAmount+=pTotal;
+
+                    totalView.setText("Total today: "+ totalAmount + " pln");
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
     }
 
@@ -100,6 +182,10 @@ public class MainActivity extends AppCompatActivity {
 
                 if (amount2.isEmpty()){
                     amount.setError("Please put correct amount");
+                    return;
+                }
+                if (notes2.isEmpty()){
+                    notes.setError("Please put notes");
                     return;
                 }
                 if (item.equals("Select item")){
