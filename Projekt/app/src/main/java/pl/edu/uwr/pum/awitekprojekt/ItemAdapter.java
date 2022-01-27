@@ -133,10 +133,10 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
         mNote.setText(note);
         mNote.setSelection(note.length());
 
-        Button updateBtn  = myView.findViewById(R.id.update);
-        Button deleteBtn = myView.findViewById(R.id. delete);
+        Button update  = myView.findViewById(R.id.update);
+        Button delete = myView.findViewById(R.id. delete);
 
-        updateBtn.setOnClickListener(new View.OnClickListener() {
+        update.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View view) {
@@ -165,7 +165,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder>{
             }
         });
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

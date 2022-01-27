@@ -10,11 +10,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -222,15 +226,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
             }
         });
-        dialog.show();
+        dialog.show(); }
 
+        @Override
+        public boolean onCreateOptionsMenu (Menu menu)
+        {
+            MenuInflater inflater =getMenuInflater();
+            inflater.inflate(R.menu.activity_menu,menu);
+            return true;
+        }
 
+        @Override
+        public boolean onOptionsItemSelected(@NonNull MenuItem item){
+        if (item.getItemId() == R.id.account){
+            Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+        }
 
-    }
 }
