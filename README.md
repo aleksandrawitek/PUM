@@ -46,12 +46,12 @@ Wpis zawiera kwotę, opis, datę itp.
 
 Główne założenia:
 
-- [ ] dopracowane, przejrzyste GUI
+- [x] dopracowane, przejrzyste GUI
 - [x] logowanie 
-- [ ] połączenie z bazą danych, do której będą dodawane wpisy odnośnie wydatków
-- [ ] wyświetlanie danych za pomocą recyclerview
-- [ ] CRUD
-- [ ] alertDialogi
+- [x] połączenie z bazą danych, do której będą dodawane wpisy odnośnie wydatków
+- [x] wyświetlanie danych za pomocą recyclerview
+- [x] CRUD
+- [x] alertDialogi
 
 w trakcie tworzenia aplikacji mogą zostać jeszcze dodane nowe funkcjonalości. 
 
@@ -63,4 +63,19 @@ w trakcie tworzenia aplikacji mogą zostać jeszcze dodane nowe funkcjonalości.
 
 - za pomocą konta Google
 - łączenie z FireBase, gdzie przechowuję w GoogleCloud bazę danych wykorzystaną w projekcie
+
+<b> Baza danych: </b>
+
+- baza danych online (Firebase, google)
+- aktualizowana w czasie rzeczywistym
+- trzyma wszystkie dane, ale w RecyclerView wyświetla tylko te z data dzisiejsza
+- CRUD (aktualizowany jest za rowno adaper (notifysetdatachange) oraz wysylana jest informacja do firebase o zmianach)
+
+<b> Inne: </b>
+
+- alertDialogi
+- Toasty
+- menu (u gory ikona account)
+- string array z itemami (lista rozwijana)
+
 
