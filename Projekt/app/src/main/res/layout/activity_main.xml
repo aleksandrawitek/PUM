@@ -38,7 +38,6 @@
             android:layout_height="wrap_content"
             android:src="@drawable/addbtn"
             android:layout_margin="16dp"
-
             android:layout_gravity="bottom|right"></com.google.android.material.floatingactionbutton.FloatingActionButton>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
