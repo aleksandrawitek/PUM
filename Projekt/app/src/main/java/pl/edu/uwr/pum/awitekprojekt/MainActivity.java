@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        toolbar = findViewById(R.id.toolbar);
         total = findViewById(R.id.total_spend);
         recyclerView = findViewById(R.id.recycler_view);
         floatingActionButton = findViewById(R.id.floating_button);
@@ -55,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         userId = firebaseAuth.getUid();
         reference = FirebaseDatabase.getInstance().getReference().child("expenses").child(userId);
         progressDialog = new ProgressDialog(this);
+
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
