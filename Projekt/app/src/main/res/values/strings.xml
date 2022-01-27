@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">AWitekProjekt</string>
     <string-array name="items">
+        <item>Select item</item>
         <item>Bills</item>
         <item>Drive</item>
         <item>Food</item>

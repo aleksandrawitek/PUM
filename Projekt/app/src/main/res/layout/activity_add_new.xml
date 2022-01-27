@@ -80,17 +80,20 @@
                 android:background="@color/beige"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
+
                 <Button
                     android:id="@+id/save"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="save"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:backgroundTint="@color/green"
+                    android:text="Save"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:backgroundTint="@color/green"
-                    android:layout_margin="2dp"
-                    />
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <RelativeLayout
