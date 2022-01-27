@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,53 +25,25 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AccountActivity extends AppCompatActivity {
 
 
-    private TextView loged, name, email;
     private Button logout;
-    private CircleImageView profileImage;
+    private TextView email;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String userEmail = user.getEmail();
 
-    private FirebaseAuth mAuth;
-    private String onlinUserId = "";
-    private DatabaseReference usersRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-        loged = findViewById(R.id.loged);
-        name = findViewById(R.id.name);
+        logout = findViewById(R.id.logout);
         email = findViewById(R.id.email);
-        logout = findViewById(R.id.logoutBtn);
-        profileImage = findViewById(R.id.profile_image);
-
-        mAuth = FirebaseAuth.getInstance();
-        onlinUserId = mAuth.getCurrentUser().getUid();
-        usersRef = FirebaseDatabase.getInstance().getReference().child("users").child(onlinUserId);
-
-        usersRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                loged.setText(snapshot.child("loged").getValue().toString());
-                name.setText(snapshot.child("name").getValue().toString());
-                email.setText(snapshot.child("email").getValue().toString());
-
-                //https://github.com/bumptech/glide
-                Glide.with(AccountActivity.this).load(snapshot.child("profilepictureurl").getValue().toString()).into(profileImage);
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
+        email.setText(userEmail);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 new AlertDialog.Builder(AccountActivity.this)
-                        .setTitle("Daily Spend Tracker")
-                        .setMessage("Are you sure you want to exit?")
+                        .setTitle("AWitek Projekt")
+                        .setMessage("Do you really want to logout?")
                         .setCancelable(false)
                         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                             @Override
